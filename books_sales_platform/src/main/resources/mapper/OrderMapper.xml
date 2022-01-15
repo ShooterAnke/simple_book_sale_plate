@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.anke.books_sales_platform.mapper.OrderMapper">
+   <resultMap id="orderResultMap" type="net.anke.books_sales_platform.model.entity.Order">
+       <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+       <result column="count" property="count"/>
+       <result column="all_pay" property="allPay"/>
+       <result column="create_time" property="createTime"/>
+       <result column="is_send" property="isSend"/>
+       <result column="is_get" property="isGet"/>
+       <result column="is_delete" property="isDelete"/>
+       <result column="username" property="user.username"/>
+       <result column="phone" property="user.phone"/>
+       <result column="address" property="user.address"/>
+       <result column="head_image" property="user.headImage"/>
+       <result column="name" property="user.name"/>
+       <collection property="orderBooks" ofType="net.anke.books_sales_platform.model.entity.OrderBook">
+           <id column="orderBook_id" property="id"/>
+           <result column="book_id" property="bookId"/>
+           <result column="orderBook_count" property="count"/>
+           <result column="orderBook_all_pay" property="allPay"/>
+           <result column="cover_image" property="coverImage"/>
+           <result column="book_name" property="book.name"/>
+           <result column="book_category" property="book.category"/>
+           <result column="book_publisher" property="book.publisher"/>
+           <result column="book_price" property="book.price"/>
+       </collection>
+   </resultMap>
+    <select id="search_card_data_by_username" resultMap="orderResultMap">
+        select o.id,o.user_id,o.count,o.all_pay,o.create_time,o.is_send,o.is_get,o.is_delete,
+               u.username,u.phone,u.address,u.head_image,u.name,ob.id as orderBook_id,ob.book_id,
+               ob.count as orderBook_count,ob.all_pay as orderBook_all_pay,ob.cover_image,
+               b.name as book_name,b.category as book_category,b.publisher as book_publisher,b.price as book_price
+        from orders o left join users u on o.user_id=u.id left join order_books ob on o.id=ob.order_id left join books b on b.id=ob.book_id
+        where o.is_send=#{is_send} and o.is_get=#{is_get} and o.is_delete=0 and username like concat('%',#{username},'%')
+    </select>
+    <select id="search_card_data_by_order_id" resultMap="orderResultMap">
+        select o.id,o.user_id,o.count,o.all_pay,o.create_time,o.is_send,o.is_get,o.is_delete,
+               u.username,u.phone,u.address,u.head_image,u.name,ob.id as orderBook_id,ob.book_id,
+               ob.count as orderBook_count,ob.all_pay as orderBook_all_pay,ob.cover_image,
+               b.name as book_name,b.category as book_category,b.publisher as book_publisher,b.price as book_price
+        from orders o left join users u on o.user_id=u.id left join order_books ob on o.id=ob.order_id left join books b on b.id=ob.book_id
+        where o.is_send=#{is_send} and o.is_get=#{is_get} and o.is_delete=0 and o.id=#{order_id}
+    </select>
+    <update id="confirm_send">
+        update orders set is_send=1 where id=#{order_id}
+    </update>
+    <update id="confirm_order">
+        update orders set is_get=1 where id=#{order_id}
+    </update>
+    <update id="cancel_order">
+        update orders set is_delete=1 where id=#{order_id}
+    </update>
+</mapper>

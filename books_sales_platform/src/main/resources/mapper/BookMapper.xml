@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.anke.books_sales_platform.mapper.BookMapper">
+    <update id="update_book_count">
+        update books set count=#{count} where id=#{book_id}
+    </update>
+    <select id="select_book_for_order" resultType="net.anke.books_sales_platform.model.entity.Book">
+        select name,category,publisher,price,count from books where id=#{book_id}
+    </select>
+</mapper>

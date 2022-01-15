@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.anke.books_sales_platform.mapper.CartMapper">
+    <update id="update_cart" parameterType="net.anke.books_sales_platform.model.entity.Cart">
+        update cart set count=#{cart.count},all_pay=#{cart.allPay} where user_id=#{cart.userId} and book_id=#{cart.bookId}
+    </update>
+</mapper>

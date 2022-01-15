@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.anke.books_sales_platform.mapper.UserMapper">
+
+    <update id="delete_by_username">
+        update users set isdeleted=1 where username=#{username}
+    </update>
+    <update id="update_password">
+        update users set password=#{password},update_time=#{date} where username=#{username} and isdeleted=0
+    </update>
+    <update id="update_phone">
+        update users set phone=#{phone},update_time=#{date} where username=#{username} and isdeleted=0
+    </update>
+    <update id="update_name">
+        update users set name=#{name},update_time=#{date} where username=#{username} and isdeleted=0
+    </update>
+    <update id="update_address">
+        update users set address=#{address},update_time=#{date} where username=#{username} and isdeleted=0
+    </update>
+    <update id="update_head_image">
+        update users set head_image=#{url},update_time=#{date} where username=#{username} and isdeleted=0
+    </update>
+</mapper>

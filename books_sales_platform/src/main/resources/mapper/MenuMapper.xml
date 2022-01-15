@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.anke.books_sales_platform.mapper.MenuMapper">
+    <resultMap id="menuResultMap" type="net.anke.books_sales_platform.model.entity.Menu">
+        <id column="id" property="id"/>
+        <result column="power" property="power"/>
+        <result column="mother_id" property="motherId"/>
+        <result column="label" property="label"/>
+        <result column="icon" property="icon"/>
+        <result column="component" property="component"/>
+        <result column="path" property="path"/>
+        <result column="name" property="name"/>
+        <collection property="children" ofType="net.anke.books_sales_platform.model.entity.Menu">
+            <id column="c_id" property="id"/>
+            <result column="c_power" property="power"/>
+            <result column="c_mother_id" property="motherId"/>
+            <result column="c_label" property="label"/>
+            <result column="c_icon" property="icon"/>
+            <result column="c_component" property="component"/>
+            <result column="c_path" property="path"/>
+            <result column="c_name" property="name"/>
+        </collection>
+    </resultMap>
+    <select id="list_menus_by_power" resultMap="menuResultMap">
+        select a.id,a.power,a.mother_id,a.label,a.icon,a.component,a.path,a.name,
+               b.id as c_id,b.power as c_power,b.mother_id as c_mother_id,b.label as c_label,b.icon as c_icon,
+               b.component as c_component, b.path as c_path,b.name as c_name
+        from menus a left join menus b on a.id=b.mother_id where a.power=#{power} order by a.id asc
+    </select>
+</mapper>

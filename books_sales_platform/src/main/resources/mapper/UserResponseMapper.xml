@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.anke.books_sales_platform.mapper.UserResponseMapper">
+    <update id="update_by_username" parameterType="net.anke.books_sales_platform.model.response.UserResponse">
+        update users SET phone=#{user.phone},head_image=#{user.headImage},name=#{user.name},
+                         power=#{user.power},address=#{user.address},update_time=#{date} where username=#{user.username} and isdeleted=0
+    </update>
+</mapper>

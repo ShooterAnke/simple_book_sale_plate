@@ -1,0 +1,30 @@
+
+#spring的配置信息
+spring:
+  datasource:
+    driver-class-name: #you can change your driver  for sqlserver or mysql or other
+    username: #the username to connect sql
+    password: #the password to connect sql
+    url: jdbc:sqlserver://localhost:1433;DatabaseName=books_sales_form #you can change your url like this
+  redis:
+    port: #use redis port
+    password: #use password
+    host: #redis server host
+  cache:
+    type: redis
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+#mybatisplus的配置信息
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+#服务端口
+server:
+  port: 8080
+  max-http-header-size: 10240
+#文件上传目录
+prop:
+  upload-folder: F:\\image\\  #the image you want to save.
